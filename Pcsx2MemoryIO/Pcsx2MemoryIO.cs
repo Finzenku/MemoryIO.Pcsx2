@@ -1,9 +1,8 @@
-﻿using MemoryIO;
-using MemoryIO.Factories;
+﻿using MemoryIO.Factories;
 using System.Diagnostics;
 using System.Text;
 
-namespace Pcsx2Memory.IO
+namespace MemoryIO.Pcsx2
 {
     public class Pcsx2MemoryIO : IMemoryIO
     {

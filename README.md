@@ -13,7 +13,7 @@ Calling `Update()` will attempt to find and attach to a PCSX2 process if not alr
 ### EEmem BaseAddress
 `Pcsx2MemoryIO` automatically finds the BaseAddress of EEmem based on whether the process is running in 64bit or 32bit mode. This allows users to simply use the address without worrying about where the EEmem was initialized.  
 If you have used Cheat Engine on PCSX2 1.6.0 you might have found a value at address `0x20C461DA`. With `Pcsx2MemoryIO`, you would just ignore the first 2 and use `0x00C461DA`.  
-IMemoryIO methods are overloaded with methods that take an `int` address for convenience as the PS2 archetecture is 32bit. 
+IMemoryIO methods are overloaded with methods that take an `int` address for convenience as the PS2 architecture is 32bit. 
 `Pcsx2MemoryIO` does expose the `BaseAddress` of EEmem as an `IntPtr` in case users want to access it.
 
 ### Example

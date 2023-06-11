@@ -25,6 +25,11 @@ namespace MemoryIO.Pcsx2
         #endregion
 
         #region Constructor
+        public Pcsx2MemoryIO()
+        {
+            Encoding = Encoding.UTF8;
+            Update();
+        }
         public Pcsx2MemoryIO(Encoding encoding)
         {
             Encoding = encoding;

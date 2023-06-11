@@ -11,8 +11,8 @@
     <RepositoryUrl>https://github.com/Finzenku/MemoryIO.Pcsx2</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>Memory; IO; PCSX2; Cross-Platform</PackageTags>
-    <PackageReleaseNotes>Fixed an issue where the BaseAddress was being set to the 64bit address using the ld-2.21.so process</PackageReleaseNotes>
-	<VersionPrefix>1.0.2</VersionPrefix>
+    <PackageReleaseNotes>Updated logic for getting the Process of PCSX2 1.6.0 on Linux</PackageReleaseNotes>
+	<VersionPrefix>1.0.3</VersionPrefix>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 

@@ -42,10 +42,12 @@ namespace MemoryIO.Pcsx2
 
         private static Process? GetPcsx2Process()
         {
-            // Idk if PCSX2 1.6.0 always runs via ld-2.21.so on Linux, but I hope it does!
+            // PCSX2 1.6.0 on Linux runs via some dynamic linker/loader, "ld-2.21.so", "ld-linux.so.2", "ld-2.31.so"
+            // They seem to all have .so in their ProcessName and if we then check the MainModule.FileName we should see "pcsx2"
+            // Checking for ".so" first avoids Windows yelling at us for looking at the MainModule of System processes
             // pcsx2.AppImage is another process that runs along-side it but doesn't have the memory we're looking for
             // So we have to avoid p.ProcessName.Contains("pcsx2") in this case
-            Process? linux32 = Process.GetProcesses().Where(p => p.ProcessName.Contains("ld-2.21.so")).FirstOrDefault();
+            Process? linux32 = Process.GetProcesses().Where(p => p.ProcessName.Contains(".so") && (p.MainModule?.FileName?.Contains(Pcsx2ProcessName)??false)).FirstOrDefault();
             if (linux32 is not null)
                 return linux32;
 
@@ -65,7 +67,7 @@ namespace MemoryIO.Pcsx2
             {
                 memoryManager = MemoryIOFactory.CreateEnvironmentSpecificMemoryIO(Pcsx2Process!);
 
-                // Double check that we're not using the ld-2.21.so process because that still returns Is64BitProcess as true
+                // Double check that we're not using the Linux 1.6.0 process because that still returns Is64BitProcess as true
                 if (memoryManager.Is64BitProcess && memoryManager.Process.ProcessName.Contains(Pcsx2ProcessName))
                 {
                     // PCSX2 1.7 alligns its virtual memory to have a clean base address for "debugging pleasure"

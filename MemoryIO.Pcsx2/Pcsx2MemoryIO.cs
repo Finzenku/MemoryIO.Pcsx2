@@ -20,6 +20,7 @@ namespace MemoryIO.Pcsx2
         #region Properties
         public bool Pcsx2Running => Pcsx2Process is not null; 
         public bool IsAttached => memoryManager is not null;
+        public IntPtr BaseAddress => (IntPtr)Pcsx2MemoryOffset;
 
         public Encoding Encoding { get; init; }
         #endregion

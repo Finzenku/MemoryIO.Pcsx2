@@ -65,7 +65,8 @@ namespace MemoryIO.Pcsx2
             {
                 memoryManager = MemoryIOFactory.CreateEnvironmentSpecificMemoryIO(Pcsx2Process!);
 
-                if (memoryManager.Is64BitProcess)
+                // Double check that we're not using the ld-2.21.so process because that still returns Is64BitProcess as true
+                if (memoryManager.Is64BitProcess && memoryManager.Process.ProcessName.Contains(Pcsx2ProcessName))
                 {
                     // PCSX2 1.7 alligns its virtual memory to have a clean base address for "debugging pleasure"
                     // See pcsx2/System.cpp `makeMemoryManager` function if this ever breaks

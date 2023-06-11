@@ -103,71 +103,76 @@ namespace MemoryIO.Pcsx2
         #endregion
 
         #region IMemoryIO
-        public byte[] ReadData(IntPtr address, int dataLength)
-        {
-            return IsAttached && address != IntPtr.Zero ? memoryManager!.ReadData(address, dataLength) : new byte[0];
-        }
-        public byte[] ReadData(int address, int dataLength) => ReadData(ValidateAddress(address), dataLength);
+        public byte[] ReadData(IntPtr address, int dataLength) => IsAttached ? memoryManager!.ReadData(ValidateAddress(address), dataLength) : new byte[0];
+        public byte[] ReadData(int address, int dataLength) => IsAttached ? memoryManager!.ReadData(ValidateAddress(address), dataLength) : new byte[0];
 
-        public T Read<T>(IntPtr address) where T : unmanaged
-        {
-            return IsAttached && address != IntPtr.Zero ? memoryManager!.Read<T>(address) : default!;
-        }
-        public T Read<T>(int address) where T : unmanaged => Read<T>(ValidateAddress(address));
+        public T Read<T>(IntPtr address) where T : unmanaged => IsAttached ? memoryManager!.Read<T>(ValidateAddress(address)) : default!;
+        public T Read<T>(int address) where T : unmanaged => IsAttached ? memoryManager!.Read<T>(ValidateAddress(address)) : default!;
 
-        public T[] ReadArray<T>(IntPtr address, int arrayLength) where T : unmanaged
-        {
-            return IsAttached && address != IntPtr.Zero ? memoryManager!.ReadArray<T>(address, arrayLength) : default!;
-        }
-        public T[] ReadArray<T>(int address, int arrayLength) where T : unmanaged => ReadArray<T>(ValidateAddress(address), arrayLength);
+        public T[] ReadArray<T>(IntPtr address, int arrayLength) where T : unmanaged => IsAttached ? memoryManager!.ReadArray<T>(ValidateAddress(address), arrayLength) : default!;
+        public T[] ReadArray<T>(int address, int arrayLength) where T : unmanaged => IsAttached ? memoryManager!.ReadArray<T>(ValidateAddress(address), arrayLength) : default!;
 
-        public string ReadString(IntPtr address, Encoding encoding, int maxLength = 512)
-        {
-            return IsAttached && address != IntPtr.Zero ? memoryManager!.ReadString(address, Encoding) : string.Empty;
-        }
-        public string ReadString(int address) => ReadString(ValidateAddress(address), Encoding);
+        public string ReadString(IntPtr address, Encoding encoding, int maxLength = 512) => IsAttached ? memoryManager!.ReadString(ValidateAddress(address), encoding) : string.Empty;
+        public string ReadString(int address) => IsAttached ? memoryManager!.ReadString(ValidateAddress(address), Encoding) : string.Empty;
 
-        public string[] ReadStringArray(IntPtr address, Encoding encoding, int maxLength = 512)
-        {
-            return IsAttached && address != IntPtr.Zero ? memoryManager!.ReadStringArray(address, Encoding) : new string[0];
-        }
-        public string[] ReadStringArray(int address) => ReadStringArray(ValidateAddress(address), Encoding);
+        public string[] ReadStringArray(IntPtr address, Encoding encoding, int maxLength = 512) => IsAttached ? memoryManager!.ReadStringArray(ValidateAddress(address), Encoding) : new string[0];
+        public string[] ReadStringArray(int address) => IsAttached ? memoryManager!.ReadStringArray(ValidateAddress(address), Encoding) : new string[0];
 
         public void WriteData(IntPtr address, byte[] data)
         {
-            if (IsAttached && address != IntPtr.Zero)
-                memoryManager!.WriteData(address, data);
+            if (IsAttached)
+                memoryManager!.WriteData(ValidateAddress(address), data);
         }
 
-        public void WriteData(int address, byte[] data) => WriteData(ValidateAddress(address), data);
+        public void WriteData(int address, byte[] data)
+        {
+            if (IsAttached)
+                memoryManager!.WriteData(ValidateAddress(address), data);
+        }
 
         public void Write<T>(IntPtr address, T value) where T : unmanaged
         {
-            if (IsAttached && address != IntPtr.Zero)
-                memoryManager!.Write<T>(address, value);
+            if (IsAttached)
+                memoryManager!.Write(ValidateAddress(address), value);
         }
-        public void Write<T>(int address, T value) where T : unmanaged => Write(ValidateAddress(address), value);
+        public void Write<T>(int address, T value) where T : unmanaged
+        {
+            if (IsAttached)
+                memoryManager!.Write(ValidateAddress(address), value);
+        }
 
         public void WriteArray<T>(IntPtr address, T[] value) where T : unmanaged
         {
-            if (IsAttached && address != IntPtr.Zero)
-                memoryManager!.WriteArray(address, value);
+            if (IsAttached)
+                memoryManager!.WriteArray(ValidateAddress(address), value);
         }
-        public void WriteArray<T>(int address, T[] value) where T : unmanaged => WriteArray(ValidateAddress(address), value);
+        public void WriteArray<T>(int address, T[] value) where T : unmanaged
+        {
+            if (IsAttached)
+                memoryManager!.WriteArray(ValidateAddress(address), value);
+        }
 
         public void WriteString(IntPtr address, string text, Encoding encoding)
         {
-            if (IsAttached && address != IntPtr.Zero)
-                memoryManager!.WriteString(address, text, Encoding);
+            if (IsAttached)
+                memoryManager!.WriteString(ValidateAddress(address), text, encoding);
         }
-        public void WriteString(int address, string text) => WriteString(ValidateAddress(address), text, Encoding);
+        public void WriteString(int address, string text)
+        {
+            if (IsAttached)
+                memoryManager!.WriteString(ValidateAddress(address), text, Encoding);
+        }
 
         public void WriteStringArray(IntPtr address, string[] text, Encoding encoding)
         {
-            if (IsAttached && address != IntPtr.Zero)
-                memoryManager!.WriteStringArray(address, text, Encoding);
+            if (IsAttached)
+                memoryManager!.WriteStringArray(ValidateAddress(address), text, encoding);
         }
-        public void WriteStringArray(int address, string[] text) => WriteStringArray(ValidateAddress(address), text, Encoding);
+        public void WriteStringArray(int address, string[] text)
+        {
+            if (IsAttached)
+                memoryManager!.WriteStringArray(ValidateAddress(address), text, Encoding);
+        }
 
         #endregion
 

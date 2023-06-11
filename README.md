@@ -14,7 +14,7 @@ Calling `Update()` will attempt to find and attach to a PCSX2 process if not alr
 `Pcsx2MemoryIO` automatically finds the BaseAddress of EEmem based on whether the process is running in 64bit or 32bit mode. This allows users to simply use the address without worrying about where the EEmem was initialized.  
 If you have used Cheat Engine on PCSX2 1.6.0 you might have found a value at address `0x20C461DA`. With `Pcsx2MemoryIO`, you would just ignore the first 2 and use `0x00C461DA`.  
 It is recommended to use the methods that use an `int` for the address as they are validated to include the BaseAddress if they are non-zero and not greater than the BaseAddress already.  
-`Pcsx2MemoryIO` does expose the `BaseAddress` of EEmem as an `IntPtr` to allow users to use the default `IMemoryIO` methods, without address validation. Advanced users could also use those methods to read/write anywhere in the PCSX2 memory, not just EEmem.
+`Pcsx2MemoryIO` does expose the `BaseAddress` of EEmem as an `IntPtr` in case users want to access it.
 
 ### Example
 ```csharp
